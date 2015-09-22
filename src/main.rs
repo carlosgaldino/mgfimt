@@ -34,8 +34,10 @@ fn main() {
         value = value.trim_right().to_string();
     };
 
-    obj.insert(key, Value::String(value));
+    obj.insert(key.clone(), Value::String(value.clone()));
 
     let mut fwrite = OpenOptions::new().write(true).truncate(true).open(filepath).unwrap();
     fwrite.write(ser::to_string(obj).unwrap().as_bytes());
+
+    println!("Added {}: {}", key, value);
 }
